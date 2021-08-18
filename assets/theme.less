@@ -1,0 +1,31 @@
+@import '~ant-design-vue/dist/antd.less';
+@primary-color: #3b66f5; // primary color for all components
+
+.custom-btn-font {
+  text-transform: lowercase;
+  font-feature-settings: "c2sc","smcp";
+  font-variant: small-caps;
+  box-shadow: none!important;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+a {
+  color: unset;
+}
+
+.group-right {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.child-group-right {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.child-group-right > * + * {
+  margin-left: 10px;
+}
+.child-group-right > button {
+  font-weight: 300;
+}
