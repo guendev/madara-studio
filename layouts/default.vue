@@ -1,7 +1,9 @@
 <template>
   <a-layout id="components-layout-demo-custom-trigger">
     <a-layout-sider>
-      <div class="site-logo" style="height: 40px"></div>
+      <div class="site-logo">
+        <img :src="logo" class="logo-svg">
+      </div>
       <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
         <a-menu-item key="1" @click="$router.push({ name: 'stories' })">
           <a-icon type="appstore" />
@@ -53,23 +55,21 @@
   </a-layout>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DefaultLayout',
   data () {
     return {
-      collapsed: false
+      collapsed: false,
+      logo: process.env.LOGO
     }
   },
   computed: {
     ...mapGetters('user', ['user'])
   },
   methods: {
-    async logOut () {
-      await this.$apolloHelpers.onLogout()
-      window.location.href = process.env.DOMAIN
-    }
+    ...mapActions('user', ['logOut'])
   }
 }
 </script>
@@ -97,6 +97,11 @@ export default {
 }
 #__layout > * {
   min-height: 100vh;
+}
+img.logo-svg {
+  width: 100px;
+  display: block;
+  margin: 10px auto;
 }
 .site-header {
   padding-right: 24px;

@@ -13,33 +13,29 @@ export default ({ store, redirect }) => {
     }
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, extensions }) => {
-        if (['UNAUTHENTICATED', 'FORBIDDEN'].includes(extensions.code)) {
+        if (['UNAUTHENTICATED', 'FORBIDDEN', 'NOTIFY'].includes(extensions.code)) {
           switch (extensions.code) {
             // yêu cầu đăng nhập
             case 'UNAUTHENTICATED':
               if (process.browser) {
-                $nuxt.$emit('addNotify', {
-                  id: Math.random(),
-                  success: false,
-                  msg: message
-                })
+                $nuxt.$message.error('Bạn không được phép truy cập')
                 setTimeout(() => {
                   store.dispatch('user/logOut')
                 }, 1500)
               }
               break
             case 'FORBIDDEN':
-              // không đủ quyền truy cập, nội dung không tồn tại
-              console.log('không đủ quyền truy cập, nội dung không tồn tại')
+              if (process.browser) {
+                $nuxt.$message.error('Bạn không được phép truy cập')
+                setTimeout(() => {
+                  store.dispatch('user/logOut')
+                }, 1500)
+              }
               redirect('/404')
               break
+            case 'NOTIFY':
+              $nuxt.$message.error(message)
           }
-        } else if (process.browser) {
-          $nuxt.$emit('addNotify', {
-            id: Math.random(),
-            success: false,
-            msg: message
-          })
         }
       })
     }

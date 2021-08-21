@@ -36,5 +36,11 @@ export const actions = {
   },
   setUser ({ commit }, user) {
     commit('SET_USER', user)
+  },
+  logOut () {
+    this.$cookies.remove('apollo-token')
+    if (process.browser) {
+      window.location.href = '/'
+    }
   }
 }
