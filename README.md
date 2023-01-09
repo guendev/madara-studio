@@ -32,4 +32,4 @@ DOMAIN_CDN=
 ## Ads
 > Turn off Show Ads when edit comic if you want to turn off ads
 ## License
-- Email: dnstylish@gmail.com
+- Email: contact@guen.dev
